@@ -5,11 +5,15 @@ import sliderSelectors from '../constants/slider.js'
 import { setContentFromSlideNumber } from '../dataContent/dataContentFunctions.js'
 
 
+// generelle funktionen, die von überall genutzt werden können..
+
 
 function sliderSize() {
     return $('#' + sliderSelectors.sliderItemContainer).outerWidth()
 }
 
+
+// nicht nur bei click - sondern auch bei next / prev
 function handleSlideSelect(previousSlide, nextSlide) {
 
     const { sliderScroll } = window.ac.slider.bindings
@@ -26,16 +30,17 @@ function handleSlideSelect(previousSlide, nextSlide) {
     setContentFromSlideNumber(nextSlide.data('nr'))
 }
 
+// spezifisches sliderelement zurueckgeben
 function getSliderItemWithSlideNumber(number) {
     return $('.' + sliderSelectors.sliderItem + '[data-nr="' + number + '"]')
 }
 
 
-
+// function die bestimmt was im fetten showelement gezeigt werden soll wenn was geklickt wird
 function playerSetSlide(slideNumber) {
 
     const dataObject = window.ac.data
-    
+
     $('#' + sliderSelectors.sliderShowFrame).html('<img src="./imges/' + dataObject[slideNumber].img + '">')
 }
 

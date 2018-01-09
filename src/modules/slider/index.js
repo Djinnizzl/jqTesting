@@ -10,8 +10,11 @@ import sliderSelectors from '../constants/slider.js'
 let sliderScroll
 
 
+
+// slider index file - > evtl aufbohren, dass das targetelement angegeben werden kann
 function sliderContainer(items = []) {
 
+    // in der main index.js erwähnte spezifische erweiterung des state objekts
     window.ac.slider = {
         state: {
             scrollActive: false,
@@ -24,7 +27,9 @@ function sliderContainer(items = []) {
             sliderScroll: false
         }
     };
-    
+
+
+
     $('#' + sliderSelectors.sliderContainer).append(sliderSlideMultiple('left'))
     let sliderContainerItem = $('#' + sliderSelectors.sliderContainer).append($('<div>', {
         id: sliderSelectors.sliderItemContainer,
@@ -41,6 +46,8 @@ function sliderContainer(items = []) {
     $('#' + sliderSelectors.sliderContainer).append(sliderSlideSingle('left'))
     $('#' + sliderSelectors.sliderContainer).append(sliderSlideSingle('right'))
 
+
+    // resize"scanner" kann leider nicht über einen css selector ausgewählt werden - es muss ein explizites element angegeben werden
     new ResizeSensor(document.getElementById(sliderSelectors.sliderBar), function() {
         addIScroll()
     })
@@ -52,18 +59,26 @@ function sliderContainer(items = []) {
 
 
 function addIScroll() {
+
+    // iscroll wird nicht überschrieben sondern zusätzlich hinzugefügt, was dazu führt, dass zb das
+    // IScroll.scroll (ob aktiv gescrollt wird) buggy wird (multiples on/off)
     if (sliderScroll) sliderScroll.destroy()
-    sliderScroll = new IScroll('#' + sliderSelectors.sliderItemContainer, {                 
+    sliderScroll = new IScroll('#' + sliderSelectors.sliderItemContainer, {
         scrollX: true, scrollY: false, mouseWheel: true,
         // momentum: false
     });
+
+    // c&p von example - scheinbar zum verhindern von mobiledefault behaviour
     document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+    // wichtig, damit beim scrollen kein clickevent der einzelnen slides ausgelöst wird (wenn gescrollt
+    // wird bleibt die maus auf dem slideritem (das wandert ja mit), was einen klick auslöst
     sliderScroll.on('scrollStart', function() {
         window.ac.slider.state.scrollActive = true
     })
     sliderScroll.on('scrollEnd', function() {
         window.ac.slider.state.scrollActive = false
     })
+    // IScroll pageweit verfügbar machen
     window.ac.slider.bindings.sliderScroll = sliderScroll
 }
 

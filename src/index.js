@@ -4,12 +4,17 @@ import fe from 'lodash/forEach'
 import sliderContainer from './modules/slider/index.js'
 
 
+// generell: alle elemente mit defaultOptions belegen und optionale options einbauen (siehe slider/sliderItem.js)
 
 
-// const content = '<img src="http://lorempixel.com/1500/1500/" alt="yolo" />'
 
+// initialisierung des ac objects (soll für statesachen gelockt sein - zb der slider (in der
+// slider index.js initialisiert: window.ac.slider = { ... })
 window.ac = {}
 
+
+// testobjekt .. soll später durch api call und echte daten abgelöst werden
+// #########################################################################################
 window.ac.data = {
     0: { img: '1.jpg', title: 'Schwarze Katze', description: 'Extrem Katzig' },
     1: { img: '2.png', title: 'Freakazoid', description: 'Qui a coupé le fromage' },
@@ -23,9 +28,12 @@ window.ac.data = {
 
 const testData = [];
 fe(window.ac.data, data => { testData.push('<img src="./imges/' + data.img + '" alt="' + data.title + '" />') });
+// #########################################################################################
 
 
 $(document).ready(function(){
 
+    // dem slider werden die einzelnen elemente übergeben, die im slider dargestellt und klickbar gemacht werden sollen
+    //  /!\ vlt umbauen, dass man ein targetelement übergibt
     sliderContainer(testData)
 })

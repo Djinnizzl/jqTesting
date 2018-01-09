@@ -1,19 +1,19 @@
 
 
-
+// helper um aus $(element).css('transform') sinnvolle werte zu bekommen (müsste evtl erweitert werden für translate3d sachen?)
 function extractTransformDataFromJqueryObject(jQElement) {
-    
-    let transformMatrix = 
+
+    let transformMatrix =
         jQElement.css("-webkit-transform") ||
         jQElement.css("-moz-transform")    ||
         jQElement.css("-ms-transform")     ||
         jQElement.css("-o-transform")      ||
         jQElement.css("transform")
 
-        
+
     transformMatrix = transformMatrix.replace(/^matrix\(|\)$/g, '')
 
-    let transformMatrixArr = transformMatrix.split(',').map(item => item.trim()); 
+    let transformMatrixArr = transformMatrix.split(',').map(item => item.trim());
 
     transformMatrixArr = transformMatrixArr.length < 6 ? [0,0,0,0,0,0] : transformMatrixArr
 

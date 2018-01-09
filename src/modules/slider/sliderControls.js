@@ -5,6 +5,9 @@ import { sliderSize, handleSlideSelect, getSliderItemWithSlideNumber } from './s
 
 
 
+// functionen explizit getrennt, um sie auch für andere eventuelle elemente verfügbar zu machen
+
+
 function sliderSlideMultiple(direction, options = {}) {
     if (!direction) return null
 
@@ -48,18 +51,18 @@ function slideOne(direction) {
     };
 
     let slideToSlide = 0
-    
+
     const { sliderScroll } = window.ac.slider.bindings
     const { currentSlide, lastSlide } = window.ac.slider.state
 
     switch (direction) {
         case 'left':
-            slideToSlide = (+currentSlide - +1 < 0) ? lastSlide : +currentSlide - +1 
+            slideToSlide = (+currentSlide - +1 < 0) ? lastSlide : +currentSlide - +1
             handleSlideSelect(getSliderItemWithSlideNumber(currentSlide), getSliderItemWithSlideNumber(slideToSlide))
             break;
-            
+
             case 'right':
-            slideToSlide = (+currentSlide + +1 > lastSlide) ? 0 : +currentSlide + +1 
+            slideToSlide = (+currentSlide + +1 > lastSlide) ? 0 : +currentSlide + +1
             handleSlideSelect(getSliderItemWithSlideNumber(currentSlide), getSliderItemWithSlideNumber(slideToSlide))
             break;
     }
@@ -79,10 +82,10 @@ function slideMultiple(direction) {
     };
 
     const { sliderScroll } = window.ac.slider.bindings
-    
+
     const sliderWidth = sliderSize()
     let sliderRange = 0
-    
+
     const currentSlidePosition = sliderScroll.x
     switch (direction) {
         case 'left':
@@ -91,7 +94,7 @@ function slideMultiple(direction) {
             sliderRange = sliderScroll.x * (-1)
         }
         break;
-        
+
         case 'right':
         sliderRange = sliderWidth * 0.9 * (-1)
         if (sliderRange + sliderScroll.x < sliderScroll.maxScrollX) {
@@ -99,7 +102,7 @@ function slideMultiple(direction) {
         }
         break;
     }
-    
+
     sliderScroll.scrollBy(sliderRange, 0, 600);
 }
 

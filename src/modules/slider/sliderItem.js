@@ -6,6 +6,8 @@ import { handleSlideSelect, getSliderItemWithSlideNumber } from './sliderFunctio
 
 export default function(content, options = {}) {
 
+
+    // sollen defaulteinstellungen sein, die mit den übergebenen optionen gemerged werden
     let defaultOptions = {
         class: sliderSelectors.sliderItem,
         html: content
@@ -13,8 +15,8 @@ export default function(content, options = {}) {
 
     let mergedOptions = { ...defaultOptions, ...options }
     let sliderItem = $('<div>', mergedOptions);
-    
-    
+
+
     sliderItem.click(function(ev) {
 
         const { currentSlide, scrollActive } = window.ac.slider.state

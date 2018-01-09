@@ -15,7 +15,9 @@ function sliderBar (contentArray, options = {}) {
         html: contentArray,
         id: sliderSelectors.sliderBar,
         css: {
+            // damit die elemente am rand nicht umbrechen
             whiteSpace: 'nowrap',
+            // damit der container trotz dessen mitwächst (browserbug?)
             display: 'inline-block'
         }
     })
@@ -34,10 +36,10 @@ function getWidthOfChildren(sliderBar) {
 
 
 function getWidthOfChild(child) {
-    
+
     // TODO: fix for em/rem/...
     let width = 0
-    width = +width + +child.css('margin-left').replace(/[a-zA-Z]+/, '') 
+    width = +width + +child.css('margin-left').replace(/[a-zA-Z]+/, '')
     width = +width + +child.css('margin-right').replace(/[a-zA-Z]+/, '')
     width = +width + +child.outerWidth()
     return width
